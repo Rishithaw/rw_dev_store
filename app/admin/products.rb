@@ -1,18 +1,31 @@
 ActiveAdmin.register Product do
+  permit_params :name, :description, :category_id, :image,
+                product_prices_attributes: [:id, :price, :sale_price, :_destroy],
+                product_technologies_attributes: [:id, :technology_id, :_destroy]
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :name, :description, :base_price, :category_id, :stock_quantity, :product_type, :on_sale, :sale_price, :featured, :digital_file_url, :digital_file_size
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :description, :base_price, :category_id, :stock_quantity, :product_type, :on_sale, :sale_price, :featured, :digital_file_url, :digital_file_size]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+  form do |f|
+    f.semantic_errors
+
+    f.inputs "Product Details" do
+      f.input :name
+      f.input :description
+      f.input :category
+      f.input :image, as: :file
+    end
+
+    f.inputs "Pricing" do
+      f.has_many :product_prices, allow_destroy: true do |pp|
+        pp.input :price
+        pp.input :sale_price
+      end
+    end
+
+    f.inputs "Technologies" do
+      f.has_many :product_technologies, allow_destroy: true do |pt|
+        pt.input :technology
+      end
+    end
+
+    f.actions
+  end
 end
