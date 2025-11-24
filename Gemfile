@@ -64,5 +64,4 @@ end
 
 gem "devise"
 gem 'activeadmin'
-gem "sprockets-rails"
 gem "arctic_admin"
