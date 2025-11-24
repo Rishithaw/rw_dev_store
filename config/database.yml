@@ -13,6 +13,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   host: localhost
+  port: 5433
   username: rishitha
   password: U_B_U_N_T_U
   pool: 5
