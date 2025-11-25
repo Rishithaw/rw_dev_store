@@ -1,0 +1,13 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+    Categories
+  </a>
+
+  <ul class="dropdown-menu">
+    <% Category.all.each do |category| %>
+      <li>
+        <%= link_to category.name, category_path(category), class: "dropdown-item" %>
+      </li>
+    <% end %>
+  </ul>
+</li>

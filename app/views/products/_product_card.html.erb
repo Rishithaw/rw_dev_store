@@ -10,5 +10,9 @@
     <h3><%= product.name %></h3>
     <p class="price">$<%= product.base_price %></p>
 
+    <p class="text-muted">
+      <%= link_to product.category.name, category_path(product.category) %>
+    </p>
+
   <% end %>
 </div>
