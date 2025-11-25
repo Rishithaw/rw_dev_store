@@ -4,13 +4,18 @@ ActiveAdmin.register Product do
                 product_technologies_attributes: [:id, :technology_id, :_destroy]
 
   form do |f|
-    f.semantic_errors
+      f.semantic_errors
 
-    f.inputs "Product Details" do
+      .inputs "Product Details" do
       f.input :name
       f.input :description
+      f.input :base_price
       f.input :category
-      f.input :image, as: :file
+      f.input :technologies, as: :check_boxes
+    end
+
+    f.inputs "Product Images" do
+      f.input :images, as: :file, input_html: { multiple: true }
     end
 
     f.inputs "Pricing" do
@@ -27,5 +32,24 @@ ActiveAdmin.register Product do
     end
 
     f.actions
+  end
+end
+
+show do
+  attributes_table do
+    row :name
+    row :description
+    row :base_price
+    row :category
+
+    row :images do |product|
+      if product.images.attached?
+        product.images.map do |img|
+          image_tag url_for(img), style: "max-height: 150px;"
+        end.join.html_safe
+      else
+        "No images"
+      end
+    end
   end
 end

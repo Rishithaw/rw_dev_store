@@ -29,12 +29,18 @@ puts "Creating products..."
 100.times do
   category = categories.sample
 
-  Product.create!(
+  product = Product.create!(
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph(sentence_count: 5),
     base_price: Faker::Commerce.price(range: 10..200),
-    category: category
+    category: Category.all.sample
   )
+
+  product.images.attach(
+  io: File.open(Rails.root.join("db/seed_images/sample1.jpg")),
+  filename: "sample1.jpg",
+  content_type: "image/jpeg"
+)
 end
 
 puts "Done! Seeded #{Category.count} categories and #{Product.count} products."
