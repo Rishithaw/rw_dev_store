@@ -65,3 +65,5 @@ end
 gem "devise"
 gem 'activeadmin'
 gem "arctic_admin"
+
+gem "faker", "~> 3.5"
